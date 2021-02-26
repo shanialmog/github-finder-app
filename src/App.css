@@ -17,3 +17,8 @@ nav > h1 {
     font-weight: 100;
     font-size: 1rem
 }
+
+.round-img {
+    border-radius: 50%;
+    height: 5rem;; 
+}
