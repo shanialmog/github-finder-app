@@ -1,24 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+/* Global Styles */
+
+:root {
+    --primary-color: #026670;
+    --dark-color: #fef9c7;
+    --light-color: #edeae5;
+    --danger-color: #fec181;
+    --success-color: #9fedd7;
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
 body {
     margin: 0 auto;
     width: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 nav {
-    background-color: rgb(204 225 255);
+    background-color: var(--primary-color);
     padding: 0 5rem;
+    margin-bottom: 1rem;
+    color: #fff;
 }
 
 nav > h1 {
     margin: 0;
     height: 100%;
     padding: 1rem 0;
-    font-weight: 100;
-    font-size: 1rem
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.container {
+    max-width: 960px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
 }
 
 .round-img {
     border-radius: 50%;
     height: 5rem;; 
 }
+
+.user-card {
+    width: 100%;
+    border: 1px solid #cacaca;
+    border-radius: 0.3rem;
+    padding: 1rem 0;
+}
+
+.center-text {
+    text-align: center;
+}
+
+a:hover {
+    color: #dad8d8;
+  }
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.4rem 1.3rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in;
+    outline: none;
+  }
+
+  .spinner {
+    animation: rotator 1.4s linear infinite;
+  }
+  
+  @keyframes rotator {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+  }
+  
+  .path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation:
+      dash 1.4s ease-in-out infinite, 
+      colors 5.6s ease-in-out infinite;
+  }
+  
+  @keyframes colors {
+      0% { stroke: #4285F4; }
+      25% { stroke: #DE3E35; }
+      50% { stroke: #F7C223; }
+      75% { stroke: #1B9A59; }
+    100% { stroke: #4285F4; }
+  }
+  
+  @keyframes dash {
+   0% { stroke-dashoffset: 187; }
+   50% {
+     stroke-dashoffset: 46.75;
+     transform:rotate(135deg);
+   }
+   100% {
+     stroke-dashoffset: 187;
+     transform:rotate(450deg);
+   }
+  }
