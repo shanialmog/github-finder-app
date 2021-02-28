@@ -5,11 +5,13 @@ import axios from 'axios'
 import Navbar from './components/Navbar'
 import Users from './components/Users'
 import SearchBar from './components/SearchBar'
+import Alert from './components/Alert'
 
 class App extends Component {
   state = {
     users: [],
-    isLoading: false
+    isLoading: false,
+    alert: null
   }
 
   searchUsers = async (text) => {
@@ -22,24 +24,29 @@ class App extends Component {
     this.setState({ users: [], isLoading: false })
   }
 
-  // isDisabled = () => {
-  //   console.log("wheee")
-  //   return (this.state.users.length > 0 ? false : true)
-  // }
+  setAlert = (msg, type) => {
+    this.setState({ alert: { msg, type } })
+  }
 
   render() {
+    const { users, isLoading, alert } = this.state
     const isDisabled = this.state.users.length > 0 ? false : true
     return (
       <div>
         <Navbar />
         <div className="container">
+          {
+            this.state.alert &&
+            <Alert alert={alert} />
+          }
           <SearchBar
-          searchUsers={this.searchUsers}
-          clearUsers={this.clearUsers}
-          isDisabled={isDisabled} />
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            isDisabled={isDisabled}
+            setAlert={this.setAlert} />
           <Users
-          users={this.state.users}
-          isLoading={this.state.isLoading} />
+            users={users}
+            isLoading={isLoading} />
         </div>
       </div >
     )

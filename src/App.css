@@ -5,6 +5,7 @@
     --primary-color: #026670;
     --dark-color: #3b3b3b;
     --light-color: #e5e5e5;
+    --medium-color: #f4976c;
     --danger-color: #3b3b3b;
     --success-color: #9fedd7;
   }
@@ -39,7 +40,7 @@ nav > h1 {
 
 .container {
     max-width: 960px;
-    margin: auto;
+    margin: 1.5rem auto;
     overflow: hidden;
     padding: 0 2rem;
 }
@@ -104,13 +105,20 @@ a {
   .search-cont {
     display: flex;
     justify-content: center;
-    margin: 2rem 0;
+    margin: 0.2rem 0 1rem 0;
   }
 
   .clear-btn {
     background-color : var(--light-color);
     color: #2b2b2b;
-    /* margin-left: 1rem; */
+  }
+
+  .alert-light {
+    background-color: var(--medium-color);
+    text-align: center;
+    padding: 0.4rem 0.4rem;
+    color: #fff;
+    font-weight: 200;
   }
   
   .spinner {
