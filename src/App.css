@@ -4,7 +4,7 @@
 :root {
     --primary-color: #026670;
     --dark-color: #3b3b3b;
-    --light-color: #e5e5e5;
+    --light-color: #ecebeb;
     --medium-color: #f4976c;
     --danger-color: #3b3b3b;
     --success-color: #9fedd7;
@@ -24,10 +24,26 @@ body {
 }
 
 nav {
-    background-color: var(--primary-color);
-    padding: 0 5rem;
-    margin-bottom: 1rem;
-    color: #fff;
+  display: flex;
+  background-color: var(--primary-color);
+  padding: 0 5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  width: 100%;
+  opacity: 0.9;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav a {
+  color: #fff;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
 }
 
 nav > h1 {
@@ -38,37 +54,45 @@ nav > h1 {
     font-weight: 200;
 }
 
+nav li {
+  text-decoration: none;
+}
+
 .container {
-    max-width: 960px;
-    margin: 1.5rem auto;
-    overflow: hidden;
-    padding: 0 2rem;
+  max-width: 960px;
+  margin: 2.5rem auto;
+  overflow: hidden;
+  padding: 0 2rem;
 }
 
 .round-img {
-    border-radius: 50%;
-    height: 5rem;; 
+  border-radius: 50%;
+  height: 5rem;; 
 }
 
 .user-card {
-    width: 100%;
-    border: 1px solid #cacaca;
-    border-radius: 0.3rem;
-    padding: 1rem 0;
+  width: 100%;
+  border: 1px solid #cacaca;
+  border-radius: 0.3rem;
+  padding: 1rem 0;
 }
 
 .center-text {
-    text-align: center;
+  text-align: center;
 }
 
 a:hover {
-    color: #dad8d8;
+  color: #dad8d8;
   }
 
 a {
-    color: var(--primary-color);
-    text-decoration: none;
+  color: var(--primary-color);
+  text-decoration: none;
   }
+
+ul {
+  list-style: none;
+}
 
   .btn {
     display: inline-block;
@@ -114,11 +138,16 @@ a {
   }
 
   .alert-light {
-    background-color: var(--medium-color);
+    background-color: var(--light-color);
     text-align: center;
-    padding: 0.4rem 0.4rem;
-    color: #fff;
+    padding: 0.6rem 2rem;
+    color: #000;
     font-weight: 200;
+    font-size: 0.9rem;
+    top: 3.4rem;
+    margin: auto;
+    /* left: 14.5rem; */
+    z-index: 7000;
   }
   
   .spinner {

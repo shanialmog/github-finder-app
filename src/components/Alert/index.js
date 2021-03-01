@@ -1,11 +1,10 @@
 
 
 const Alert = ({ alert }) => {
-    console.log(alert)
     return (
         alert !== null && (
-            <div className={`alert alert-${alert.type}`}>
-                {alert.msg}
+            <div className={`alert-${alert.type}`}>
+                <i className="fas fa-info-circle" />{` ${alert.msg}`}
             </div>
         )
     )
