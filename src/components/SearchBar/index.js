@@ -1,16 +1,19 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import Tooltip from '../Tooltip'
+
 class SearchBar extends Component {
     state = {
-        text: ''
+        text: '',
+        alert: { msg: 'Please enter something', type: 'light' }
     }
 
     static propTypes = {
         searchUsers: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
         isDisabled: PropTypes.bool.isRequired,
-        setAlert: PropTypes.func.isRequired
+        // setAlert: PropTypes.func.isRequired
     }
 
 
@@ -21,12 +24,12 @@ class SearchBar extends Component {
 
     onSubmit = (e) => {
         e.preventDefault()
-        if (this.state.text === '') {
-            this.props.setAlert('Please enter something', 'light')
-        } else {
-            this.props.searchUsers(this.state.text)
-            this.setState({ text: '' })
-        }
+        // if (this.state.text === '') {
+        //     this.props.setAlert('Please enter something', 'light')
+        // } else {
+        this.props.searchUsers(this.state.text)
+        this.setState({ text: '' })
+        // }
     }
 
     render() {
@@ -41,18 +44,26 @@ class SearchBar extends Component {
                         name="text"
                         value={this.state.text}
                         onChange={this.onChange}
-                        placeholder="Search users" />
+                        placeholder="Search users"
+                    />
                     <input
                         type="submit"
                         value="Search"
-                        className="btn search-btn" />
+                        className="btn search-btn"
+                        disabled={this.state.text === ''}
+                    />
                 </form>
                 <button
                     className="btn clear-btn"
                     onClick={clearUsers}
-                    disabled={isDisabled} >
+                    disabled={isDisabled}
+                >
                     Clear
                 </button>
+                    {
+                        this.state.alert &&
+                        <Tooltip alert={this.state.alert} />
+                    }
             </div>
         )
     }

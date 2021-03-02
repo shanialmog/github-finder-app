@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Users from './components/Users'
 import SearchBar from './components/SearchBar'
-import Alert from './components/Alert'
+// import Tooltip from './components/Tooltip'
 import About from './components/About'
 
 class App extends Component {
@@ -26,22 +26,22 @@ class App extends Component {
     this.setState({ users: [], isLoading: false })
   }
 
-  setAlert = (msg, type) => {
-    this.setState({ alert: { msg, type } })
-  }
+  // setAlert = (msg, type) => {
+  //   this.setState({ alert: { msg, type } })
+  // }
 
   render() {
-    const { users, isLoading, alert } = this.state
+    const { users, isLoading } = this.state
     const isDisabled = this.state.users.length > 0 ? false : true
     return (
       <Router>
         <div>
           <Navbar />
           <div className="container">
-            {
+            {/* {
               this.state.alert &&
-              <Alert alert={alert} />
-            }
+              <Tooltip alert={alert} />
+            } */}
             <Switch>
               <Route exact path='/' render={props => (
                 <Fragment>
