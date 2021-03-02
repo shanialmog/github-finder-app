@@ -13,13 +13,22 @@ class App extends Component {
   state = {
     users: [],
     isLoading: false,
-    alert: null
+    alert: null,
+    error: null
   }
 
   searchUsers = async (text) => {
-    this.setState({ isLoading: true })
-    const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-    this.setState({ users: res.data.items, isLoading: false })
+    this.setState({ isLoading: true, error: null })
+    try {
+      const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+      this.setState({ users: res.data.items, isLoading: false }, () => {
+        return this.state.users.length < 1 ? this.setState({error: `No search results found for "${text}"`}) : ''
+      })
+
+    } catch (err) {
+      console.log(err)
+      this.setState({ error: 'Error fetching data, please try again' })
+    }
   }
 
   clearUsers = () => {
@@ -31,7 +40,7 @@ class App extends Component {
   // }
 
   render() {
-    const { users, isLoading } = this.state
+    const { users, isLoading, error } = this.state
     const isDisabled = this.state.users.length > 0 ? false : true
     return (
       <Router>
@@ -54,10 +63,11 @@ class App extends Component {
                   <Users
                     users={users}
                     isLoading={isLoading}
+                    error={error}
                   />
                 </Fragment>
               )} />
-              <Route exact path='/about' component= {About}></Route>
+              <Route exact path='/about' component={About}></Route>
             </Switch>
           </div>
         </div>

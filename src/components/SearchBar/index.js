@@ -6,7 +6,7 @@ import Tooltip from '../Tooltip'
 class SearchBar extends Component {
     state = {
         text: '',
-        alert: { msg: 'Please enter something', type: 'light' }
+        alert: { msg: 'Enter search text', type: 'light' }
     }
 
     static propTypes = {
@@ -61,7 +61,7 @@ class SearchBar extends Component {
                     Clear
                 </button>
                     {
-                        this.state.alert &&
+                        this.state.text === '' &&
                         <Tooltip alert={this.state.alert} />
                     }
             </div>
