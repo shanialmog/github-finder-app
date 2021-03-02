@@ -3,7 +3,6 @@ import Spinner from '../Spinner'
 import PropTypes from 'prop-types'
 
 const Users = ({ users, isLoading, error }) => {
-    console.log(error)
     if (isLoading && !error) {
         return <Spinner />
     } else if (error) {

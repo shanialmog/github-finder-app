@@ -3,12 +3,12 @@
 const Tooltip = ({ alert }) => {
     return (
         alert !== null && (
-            <div  className={`tooltip-${alert.type}`}>
-                <span>
+            <span  className={`tooltip-${alert.type}`}>
+                {/* <span> */}
                     <i className="fas fa-info-circle" />
                     {` ${alert.msg}`}
-                </span>
-            </div>
+                {/* </span> */}
+            </span>
         )
     )
 }

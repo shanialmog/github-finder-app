@@ -6,7 +6,8 @@ import Tooltip from '../Tooltip'
 class SearchBar extends Component {
     state = {
         text: '',
-        alert: { msg: 'Enter search text', type: 'light' }
+        alert: { msg: 'Enter search text', type: 'info' },
+        showTooltip: false
     }
 
     static propTypes = {
@@ -24,12 +25,18 @@ class SearchBar extends Component {
 
     onSubmit = (e) => {
         e.preventDefault()
-        // if (this.state.text === '') {
-        //     this.props.setAlert('Please enter something', 'light')
-        // } else {
-        this.props.searchUsers(this.state.text)
-        this.setState({ text: '' })
-        // }
+        if (this.state.text.length > 0) {
+            this.props.searchUsers(this.state.text)
+            this.setState({ text: '' })
+        }
+    }
+
+    onMouseOver = () => {
+        this.setState({ showTooltip: true })
+    }
+
+    onMouseOut = () => {
+        this.setState({ showTooltip: false })
     }
 
     render() {
@@ -49,9 +56,14 @@ class SearchBar extends Component {
                     <input
                         type="submit"
                         value="Search"
-                        className="btn search-btn"
-                        disabled={this.state.text === ''}
+                        onMouseOver={this.onMouseOver}
+                        onMouseOut={this.onMouseOut}
+                        className={this.state.text === '' ? "btn search-btn disabled" : "btn search-btn"}
                     />
+                    {
+                        this.state.showTooltip &&
+                        <Tooltip alert={this.state.alert} />
+                    }
                 </form>
                 <button
                     className="btn clear-btn"
@@ -60,10 +72,6 @@ class SearchBar extends Component {
                 >
                     Clear
                 </button>
-                    {
-                        this.state.text === '' &&
-                        <Tooltip alert={this.state.alert} />
-                    }
             </div>
         )
     }

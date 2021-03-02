@@ -26,7 +26,6 @@ class App extends Component {
       })
 
     } catch (err) {
-      console.log(err)
       this.setState({ error: 'Error fetching data, please try again' })
     }
   }
@@ -35,9 +34,6 @@ class App extends Component {
     this.setState({ users: [], isLoading: false })
   }
 
-  // setAlert = (msg, type) => {
-  //   this.setState({ alert: { msg, type } })
-  // }
 
   render() {
     const { users, isLoading, error } = this.state
@@ -52,7 +48,7 @@ class App extends Component {
               <Tooltip alert={alert} />
             } */}
             <Switch>
-              <Route exact path='/' render={props => (
+              <Route exact path='/' component={(props) => (
                 <Fragment>
                   <SearchBar
                     searchUsers={this.searchUsers}
@@ -67,6 +63,21 @@ class App extends Component {
                   />
                 </Fragment>
               )} />
+              {/* <Route exact path='/' render={props => (
+                <Fragment>
+                  <SearchBar
+                    searchUsers={this.searchUsers}
+                    clearUsers={this.clearUsers}
+                    isDisabled={isDisabled}
+                    setAlert={this.setAlert}
+                  />
+                  <Users
+                    users={users}
+                    isLoading={isLoading}
+                    error={error}
+                  />
+                </Fragment>
+              )} /> */}
               <Route exact path='/about' component={About}></Route>
             </Switch>
           </div>
