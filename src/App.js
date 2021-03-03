@@ -8,10 +8,12 @@ import Users from './components/Users'
 import SearchBar from './components/SearchBar'
 // import Tooltip from './components/Tooltip'
 import About from './components/About'
+import User from './components/User'
 
 class App extends Component {
   state = {
     users: [],
+    user: {},
     isLoading: false,
     alert: null,
     error: null
@@ -22,7 +24,20 @@ class App extends Component {
     try {
       const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       this.setState({ users: res.data.items, isLoading: false }, () => {
-        return this.state.users.length < 1 ? this.setState({error: `No search results found for "${text}"`}) : ''
+        return this.state.users.length < 1 ? this.setState({ error: `No search results found for "${text}"` }) : ''
+      })
+
+    } catch (err) {
+      this.setState({ error: 'Error fetching data, please try again' })
+    }
+  }
+
+  getUserDetails = async (username) => {
+    this.setState({ isLoading: true, error: null })
+    try {
+      const res = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+      this.setState({ user: res.data, isLoading: false }, () => {
+        return Object.keys(this.state.user).length < 1 ? this.setState({ error: `No search results found for "${username}"` }) : ''
       })
 
     } catch (err) {
@@ -36,7 +51,7 @@ class App extends Component {
 
 
   render() {
-    const { users, isLoading, error } = this.state
+    const { users, isLoading, error, user } = this.state
     const isDisabled = this.state.users.length > 0 ? false : true
     return (
       <Router>
@@ -48,7 +63,7 @@ class App extends Component {
               <Tooltip alert={alert} />
             } */}
             <Switch>
-              <Route exact path='/' component={(props) => (
+              <Route exact path='/' component={() => (
                 <Fragment>
                   <SearchBar
                     searchUsers={this.searchUsers}
@@ -78,7 +93,15 @@ class App extends Component {
                   />
                 </Fragment>
               )} /> */}
-              <Route exact path='/about' component={About}></Route>
+              <Route exact path='/about' component={About} />
+              <Route exact path='/user/:login' render={props => (
+                <User
+                  {...props}
+                  getUserDetails={this.getUserDetails}
+                  user={user}
+                  loading={isLoading}
+                />
+              )} />
             </Switch>
           </div>
         </div>
