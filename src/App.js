@@ -63,7 +63,7 @@ class App extends Component {
               <Tooltip alert={alert} />
             } */}
             <Switch>
-              <Route exact path='/' component={() => (
+              <Route exact path="/" component={() => (
                 <Fragment>
                   <SearchBar
                     searchUsers={this.searchUsers}
@@ -93,8 +93,8 @@ class App extends Component {
                   />
                 </Fragment>
               )} /> */}
-              <Route exact path='/about' component={About} />
-              <Route exact path='/user/:login' render={props => (
+              <Route exact path="/about" component={About} />
+              <Route exact path="/user/:login" render={props => (
                 <User
                   {...props}
                   getUserDetails={this.getUserDetails}

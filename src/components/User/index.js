@@ -1,10 +1,21 @@
-import { Component } from 'react'
+import { Fragment, Component } from 'react'
+import Spinner from '../Spinner'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+
 
 
 class User extends Component {
     componentDidMount() {
         this.props.getUserDetails(this.props.match.params.login)
     }
+
+    static proptype = {
+        isLoading: PropTypes.bool.isRequired,
+        user: PropTypes.object.isRequired,
+        getUserDetails: PropTypes.func.isRequired
+    }
+
     render() {
         const {
             name,
@@ -21,11 +32,23 @@ class User extends Component {
             hireable } = this.props.user
 
         const { isLoading } = this.props
-        return (
-            <div>
-                <h1>{name}</h1>
-            </div>
-        )
+        if (isLoading) return <Spinner />
+        else {
+            return (
+                <Fragment>
+                    <Link to="/" className="btn">
+                        Back to search
+                    </Link>
+                    Hireable: {''}
+                    {hireable ? <i className="fas fa-check" /> :
+                        <i className="fas fa-times-circle" />
+                    }
+                    <div>
+                        
+                    </div>
+                </Fragment>
+            )
+        }
     }
 }
 
