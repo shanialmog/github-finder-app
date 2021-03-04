@@ -24,6 +24,7 @@ class User extends Component {
             bio,
             blog,
             login,
+            company,
             html_url,
             followers,
             following,
@@ -36,17 +37,50 @@ class User extends Component {
         else {
             return (
                 <Fragment>
-                    <Link to="/" className="btn">
-                        Back to search
+                    <Link to="/" className="btn-light">
+                        <i className="fas fa-arrow-left" /> Back to search
                     </Link>
                     Hireable: {''}
                     {hireable ? <i className="fas fa-check" /> :
                         <i className="fas fa-times-circle" />
                     }
-                    <div>
-                        
+                    <div className="card grid-2">
+                        <div className="center-text user-col1">
+                            <img src={avatar_url} className="round-img" alt="user-image" />
+                            <h1>{name}</h1>
+                            <h4>Location: {location}</h4>
+                            <a href={html_url} className="btn">Github profile</a>
+                        </div>
+                        <div className="user-col2">
+                            {bio &&
+                                <Fragment>
+                                    <h4>Bio:</h4>
+                                    <p>{bio}</p>
+                                </Fragment>
+                            }
+                            <ul>
+                                <li>
+                                    {login &&
+                                        <Fragment>
+                                            <strong>Username: </strong> {login}
+                                        </Fragment>}
+                                </li>
+                                <li>
+                                    {company &&
+                                        <Fragment>
+                                            <strong>Company: </strong> {company}
+                                        </Fragment>}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </Fragment>
+                    <div className="card row center-text">
+                        <div className="badge">Followers: {followers}</div>
+                        <div className="badge">Following: {following}</div>
+                        <div className="badge">Public Repos: {public_repos}</div>
+                        <div className="badge">Public Gists: {public_gists}</div>
+                    </div>
+                </Fragment >
             )
         }
     }
