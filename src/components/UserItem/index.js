@@ -8,7 +8,7 @@ const UserItem = ({ user: { login, avatar_url, html_url } }) => {
             <img src={avatar_url} alt="" className="round-img" />
             <h3>{login}</h3>
             <div>
-                <Link to={`/user/${login}`} target="_blank" rel="noopener noreferrer" className="btn">More</Link>
+                <Link to={`/user/${login}`} rel="noopener noreferrer" className="btn">More</Link>
             </div>
         </div>
     )

@@ -46,7 +46,7 @@ class User extends Component {
                     }
                     <div className="card grid-2">
                         <div className="center-text user-col1">
-                            <img src={avatar_url} className="round-img" alt="user-image" />
+                            <img src={avatar_url} className="round-img" alt="user" />
                             <h1>{name}</h1>
                             <h4>Location: {location}</h4>
                             <a href={html_url} className="btn">Github profile</a>

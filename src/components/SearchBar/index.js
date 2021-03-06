@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link, Redirect } from 'react-router-dom'
 
 import Tooltip from '../Tooltip'
 
@@ -7,7 +8,7 @@ class SearchBar extends Component {
     state = {
         text: '',
         alert: { msg: 'Enter search text', type: 'info' },
-        showTooltip: false
+        showTooltip: false,
     }
 
     static propTypes = {
@@ -27,18 +28,20 @@ class SearchBar extends Component {
         e.preventDefault()
         if (this.state.text.length > 0) {
             this.props.searchUsers(this.state.text)
-            this.setState({ text: '' })
+            this.setState({ text: ''})
+            this.props.history.push(`/search?q=${this.state.text}`)
         }
     }
-
+    
+    
     onMouseOver = () => {
         this.setState({ showTooltip: true })
     }
-
+    
     onMouseOut = () => {
         this.setState({ showTooltip: false })
     }
-
+    
     render() {
         const { clearUsers, isDisabled } = this.props
         return (
@@ -60,6 +63,7 @@ class SearchBar extends Component {
                         onMouseOut={this.onMouseOut}
                         className={this.state.text === '' ? "btn search-btn disabled" : "btn search-btn"}
                     />
+
                     {
                         this.state.showTooltip &&
                         <Tooltip alert={this.state.alert} />
@@ -72,6 +76,10 @@ class SearchBar extends Component {
                 >
                     Clear
                 </button>
+                {/* {
+                    this.state.text &&
+                    <Redirect to={`/search?q=${this.state.text}`} />
+                } */}
             </div>
         )
     }

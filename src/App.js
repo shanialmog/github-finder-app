@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Users from './components/Users'
 import SearchBar from './components/SearchBar'
-// import Tooltip from './components/Tooltip'
 import About from './components/About'
 import User from './components/User'
 
@@ -63,18 +62,14 @@ class App extends Component {
               <Tooltip alert={alert} />
             } */}
             <Switch>
-              <Route exact path="/" component={() => (
+              <Route exact path="/" component={(props) => (
                 <Fragment>
                   <SearchBar
                     searchUsers={this.searchUsers}
                     clearUsers={this.clearUsers}
                     isDisabled={isDisabled}
                     setAlert={this.setAlert}
-                  />
-                  <Users
-                    users={users}
-                    isLoading={isLoading}
-                    error={error}
+                    {...props}
                   />
                 </Fragment>
               )} />
@@ -101,6 +96,22 @@ class App extends Component {
                   user={user}
                   loading={isLoading}
                 />
+              )} />
+              <Route path="/search" render={props => (
+                <Fragment>
+                  <SearchBar
+                    searchUsers={this.searchUsers}
+                    clearUsers={this.clearUsers}
+                    isDisabled={isDisabled}
+                    setAlert={this.setAlert}
+                    {...props}
+                  />
+                  <Users
+                    users={users}
+                    isLoading={isLoading}
+                    error={error}
+                  />
+                </Fragment>
               )} />
             </Switch>
           </div>
