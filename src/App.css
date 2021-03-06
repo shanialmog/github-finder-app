@@ -2,7 +2,7 @@
 /* Global Styles */
 
 :root {
-  --primary-color: #026670;
+  --primary-color: #303c6c;
   --dark-color: #3b3b3b;
   --light-color: #ecebeb;
   --medium-color: #f4976c;
@@ -70,10 +70,14 @@ nav li {
 .round-img {
   border-radius: 50%;
   height: 5rem;; 
+  align-self: center;
 }
 
 .user-card {
-  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  height: 11rem;
   border: 1px solid #cacaca;
   border-radius: 0.3rem;
   padding: 1rem 0;
@@ -127,8 +131,11 @@ ul {
   padding: 2rem 3rem;
   border: #ccc 1px solid;
   margin: 0.7rem 0;
-  /* display: flex;
-  flex-direction: column; */
+}
+
+.grid-3 > .card {
+  margin: 0;
+  overflow: hidden;
 }
 
 button:disabled, button[disabled], input:disabled, .disabled {
@@ -217,6 +224,15 @@ span.tooltip-info:after {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
+}
+
+
+.grid-3{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.7rem;
+  min-height: 0;
+  min-width: 0;
 }
 
 .user-col1 {

@@ -1,5 +1,6 @@
 import { Fragment, Component } from 'react'
 import Spinner from '../Spinner'
+import Repos from '../Repos'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
@@ -8,12 +9,15 @@ import { Link } from 'react-router-dom'
 class User extends Component {
     componentDidMount() {
         this.props.getUserDetails(this.props.match.params.login)
+        this.props.getUserRepos(this.props.match.params.login)
     }
 
     static proptype = {
         isLoading: PropTypes.bool.isRequired,
         user: PropTypes.object.isRequired,
-        getUserDetails: PropTypes.func.isRequired
+        getUserDetails: PropTypes.func.isRequired,
+        repos: PropTypes.array.isRequired,
+        getUserRepos: PropTypes.func.isRequired
     }
 
     render() {
@@ -32,7 +36,7 @@ class User extends Component {
             public_gists,
             hireable } = this.props.user
 
-        const { isLoading } = this.props
+        const { isLoading, repos } = this.props
         if (isLoading) return <Spinner />
         else {
             return (
@@ -80,6 +84,7 @@ class User extends Component {
                         <div className="badge">Public Repos: {public_repos}</div>
                         <div className="badge">Public Gists: {public_gists}</div>
                     </div>
+                    <Repos repos={repos}/>
                 </Fragment >
             )
         }
