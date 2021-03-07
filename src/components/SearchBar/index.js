@@ -19,6 +19,9 @@ class SearchBar extends Component {
 
 
     onChange = (e) => {
+        if (this.state.text.length == 0) {
+            this.setState({ showTooltip: false })
+        }
         const { name, value } = e.target
         this.setState({ [name]: value })
     }
@@ -27,27 +30,28 @@ class SearchBar extends Component {
         e.preventDefault()
         if (this.state.text.length > 0) {
             this.props.searchUsers(this.state.text)
-            this.setState({ text: ''})
+            this.setState({ text: '' })
             this.props.history.push(`/search?q=${this.state.text}`)
         }
     }
-    
-    
+
+
     onMouseOver = () => {
         if (this.state.text.length == 0) {
             this.setState({ showTooltip: true })
         }
     }
-    
+
     onMouseOut = () => {
         this.setState({ showTooltip: false })
     }
-    
+
     render() {
         const { clearUsers, isDisabled } = this.props
         return (
             <div className="search-cont">
                 <form
+                    autoComplete="off"
                     className="search"
                     onSubmit={this.onSubmit}>
                     <input
