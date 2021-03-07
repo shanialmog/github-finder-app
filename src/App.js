@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   getUserRepos = async (username) => {
-    this.setState({ isLoading: true, error: null })
+    this.setState({ repos: [], isLoading: true, error: null })
     try {
       const res = await axios.get(`https://api.github.com/users/${username}/repos?sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       this.setState({ repos: res.data, isLoading: false }, () => {
@@ -65,6 +65,7 @@ class App extends Component {
 
   render() {
     const { users, isLoading, error, user, repos } = this.state
+    console.log(typeof repos)
     const isDisabled = this.state.users.length > 0 ? false : true
     return (
       <Router>
@@ -108,7 +109,7 @@ class App extends Component {
                   {...props}
                   getUserDetails={this.getUserDetails}
                   user={user}
-                  loading={isLoading}
+                  isLoading={isLoading}
                   getUserRepos={this.getUserRepos}
                   repos={repos}
                 />

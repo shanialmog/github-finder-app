@@ -241,12 +241,14 @@ span.tooltip-info:after {
   align-items: center;
   justify-content: space-around;
   height: 13rem;
+  overflow: hidden;
 }
 
 .user-col2 {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
+  overflow: hidden;
 }
 
 p {

@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link, Redirect } from 'react-router-dom'
 
 import Tooltip from '../Tooltip'
 
@@ -35,7 +34,9 @@ class SearchBar extends Component {
     
     
     onMouseOver = () => {
-        this.setState({ showTooltip: true })
+        if (this.state.text.length == 0) {
+            this.setState({ showTooltip: true })
+        }
     }
     
     onMouseOut = () => {

@@ -37,10 +37,14 @@ class User extends Component {
             hireable } = this.props.user
 
         const { isLoading, repos } = this.props
+        console.log(this.props.history)
         if (isLoading) return <Spinner />
         else {
             return (
                 <Fragment>
+                    {/* <button  onClick={this.props.history.goBack} className="btn-light">
+                        <i className="fas fa-arrow-left" /> Back to search
+                    </button> */}
                     <Link to="/" className="btn-light">
                         <i className="fas fa-arrow-left" /> Back to search
                     </Link>
@@ -75,6 +79,12 @@ class User extends Component {
                                             <strong>Company: </strong> {company}
                                         </Fragment>}
                                 </li>
+                                <li>
+                                    {blog &&
+                                        <Fragment>
+                                            <strong>Blog: </strong> <a href={blog}>{blog}</a>
+                                        </Fragment>}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -84,7 +94,7 @@ class User extends Component {
                         <div className="badge">Public Repos: {public_repos}</div>
                         <div className="badge">Public Gists: {public_gists}</div>
                     </div>
-                    <Repos repos={repos}/>
+                    <Repos repos={repos} />
                 </Fragment >
             )
         }
