@@ -14,12 +14,11 @@ class SearchBar extends Component {
         searchUsers: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
         isDisabled: PropTypes.bool.isRequired,
-        // setAlert: PropTypes.func.isRequired
     }
 
 
     onChange = (e) => {
-        if (this.state.text.length == 0) {
+        if (this.state.text.length === 0) {
             this.setState({ showTooltip: false })
         }
         const { name, value } = e.target
@@ -37,7 +36,7 @@ class SearchBar extends Component {
 
 
     onMouseOver = () => {
-        if (this.state.text.length == 0) {
+        if (this.state.text.length === 0) {
             this.setState({ showTooltip: true })
         }
     }
@@ -66,7 +65,7 @@ class SearchBar extends Component {
                         value="Search"
                         onMouseOver={this.onMouseOver}
                         onMouseOut={this.onMouseOut}
-                        className={this.state.text === '' ? "btn search-btn disabled" : "btn search-btn"}
+                        className={this.state.text === '' ? "btn search-btn disabled" : "btn search-btn hover-search-btn"}
                     />
 
                     {
@@ -81,10 +80,6 @@ class SearchBar extends Component {
                 >
                     Clear
                 </button>
-                {/* {
-                    this.state.text &&
-                    <Redirect to={`/search?q=${this.state.text}`} />
-                } */}
             </div>
         )
     }

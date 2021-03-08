@@ -36,16 +36,12 @@ class User extends Component {
             public_gists,
             hireable } = this.props.user
 
-        const { isLoading, repos } = this.props
-        console.log(this.props.history)
+        const { isLoading, repos, clearUsers } = this.props
         if (isLoading) return <Spinner />
         else {
             return (
                 <Fragment>
-                    {/* <button  onClick={this.props.history.goBack} className="btn-light">
-                        <i className="fas fa-arrow-left" /> Back to search
-                    </button> */}
-                    <Link to="/" className="btn-light">
+                    <Link to="/" onClick={clearUsers} className="btn-light">
                         <i className="fas fa-arrow-left" /> Back to search
                     </Link>
                     Hireable: {''}

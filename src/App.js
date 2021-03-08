@@ -16,7 +16,7 @@ class App extends Component {
     repos: [],
     isLoading: false,
     alert: null,
-    error: null
+    error: null,
   }
 
   searchUsers = async (text) => {
@@ -65,17 +65,14 @@ class App extends Component {
 
   render() {
     const { users, isLoading, error, user, repos } = this.state
-    console.log(typeof repos)
     const isDisabled = this.state.users.length > 0 ? false : true
     return (
       <Router>
         <div>
-          <Navbar />
+          <Navbar
+            clearUsers={this.clearUsers}
+          />
           <div className="container">
-            {/* {
-              this.state.alert &&
-              <Tooltip alert={alert} />
-            } */}
             <Switch>
               <Route exact path="/" component={(props) => (
                 <Fragment>
@@ -88,21 +85,6 @@ class App extends Component {
                   />
                 </Fragment>
               )} />
-              {/* <Route exact path='/' render={props => (
-                <Fragment>
-                  <SearchBar
-                    searchUsers={this.searchUsers}
-                    clearUsers={this.clearUsers}
-                    isDisabled={isDisabled}
-                    setAlert={this.setAlert}
-                  />
-                  <Users
-                    users={users}
-                    isLoading={isLoading}
-                    error={error}
-                  />
-                </Fragment>
-              )} /> */}
               <Route exact path="/about" component={About} />
               <Route exact path="/user/:login" render={props => (
                 <User
@@ -112,6 +94,7 @@ class App extends Component {
                   isLoading={isLoading}
                   getUserRepos={this.getUserRepos}
                   repos={repos}
+                  clearUsers={this.clearUsers}
                 />
               )} />
               <Route path="/search" render={props => (
