@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -9,116 +9,122 @@ import SearchBar from './components/SearchBar'
 import About from './components/About'
 import User from './components/User'
 
-class App extends Component {
-  state = {
-    users: [],
-    user: {},
-    repos: [],
-    isLoading: false,
-    alert: null,
-    error: null,
-  }
+const App = () => {
 
-  searchUsers = async (text) => {
-    this.setState({ isLoading: true, error: null })
+  const [users, setUsers] = useState([])
+  const [user, setUser] = useState({})
+  const [repos, setRepos] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [alert, setAlert] = useState(null)
+  const [error, setError] = useState(null)
+
+
+  // useEffect(() => {
+  //   Object.keys(user).length < 1 ? setError({ error: `No search results found for "${username}"` }) : ''
+  // }, [user])
+
+  // useEffect(() => {
+  //   Object.keys(repos).length < 1 ? setError({ error: `No repos were found for "${username}"` }) : ''
+  // }, [repos])
+
+  const searchUsers = async (text) => {
+    setIsLoading(true)
+    setAlert(null)
     try {
       const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-      this.setState({ users: res.data.items, isLoading: false }, () => {
-        return this.state.users.length < 1 ? this.setState({ error: `No search results found for "${text}"` }) : ''
-      })
-
+      setIsLoading(false)
+      setUsers(res.data.items)
+        // return users.length < 1 ? setError(`No search results found for "${text}"`) : ''
     } catch (err) {
-      this.setState({ error: 'Error fetching data, please try again' })
+      setError('Error fetching data, please try again')
     }
   }
 
-  getUserDetails = async (username) => {
-    this.setState({ isLoading: true, error: null })
+  const getUserDetails = async (username) => {
+    setIsLoading(true)
+    setError(null)
     try {
       const res = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-      this.setState({ user: res.data, isLoading: false }, () => {
-        return Object.keys(this.state.user).length < 1 ? this.setState({ error: `No search results found for "${username}"` }) : ''
-      })
-
+      setIsLoading(false)
+      setUser(res.data.items)
+      // return Object.keys(user).length < 1 ? setError({ error: `No search results found for "${username}"` }) : ''
+      // })
     } catch (err) {
-      this.setState({ error: 'Error fetching data, please try again' })
+      setError('Error fetching data, please try again')
     }
   }
 
-  clearUsers = () => {
-    this.setState({ users: [], isLoading: false })
+  const clearUsers = () => {
+    setUsers([])
+    setIsLoading(false)
   }
 
-  getUserRepos = async (username) => {
-    this.setState({ repos: [], isLoading: true, error: null })
+  const getUserRepos = async (username) => {
+    setRepos([])
+    setIsLoading(true)
+    setError(null)
     try {
       const res = await axios.get(`https://api.github.com/users/${username}/repos?sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-      this.setState({ repos: res.data, isLoading: false }, () => {
-        return Object.keys(this.state.user).length < 1 ? this.setState({ error: `No search results found for "${username}"` }) : ''
-      })
-
+      setRepos(res.data)
+      setIsLoading(false)
     } catch (err) {
-      this.setState({ error: 'Error fetching data, please try again' })
+      setError('Error fetching data, please try again')
     }
   }
 
-
-  render() {
-    const { users, isLoading, error, user, repos } = this.state
-    const isDisabled = this.state.users.length > 0 ? false : true
-    return (
-      <Router>
-        <div>
-          <Navbar
-            clearUsers={this.clearUsers}
-          />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={(props) => (
-                <Fragment>
-                  <SearchBar
-                    searchUsers={this.searchUsers}
-                    clearUsers={this.clearUsers}
-                    isDisabled={isDisabled}
-                    setAlert={this.setAlert}
-                    {...props}
-                  />
-                </Fragment>
-              )} />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/user/:login" render={props => (
-                <User
+  const isDisabled = users.length > 0 ? false : true
+  return (
+    <Router>
+      <div>
+        <Navbar
+          clearUsers={clearUsers}
+        />
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={(props) => (
+              <Fragment>
+                <SearchBar
+                  searchUsers={searchUsers}
+                  clearUsers={clearUsers}
+                  isDisabled={isDisabled}
+                  setAlert={setAlert}
                   {...props}
-                  getUserDetails={this.getUserDetails}
-                  user={user}
-                  isLoading={isLoading}
-                  getUserRepos={this.getUserRepos}
-                  repos={repos}
-                  clearUsers={this.clearUsers}
                 />
-              )} />
-              <Route path="/search" render={props => (
-                <Fragment>
-                  <SearchBar
-                    searchUsers={this.searchUsers}
-                    clearUsers={this.clearUsers}
-                    isDisabled={isDisabled}
-                    setAlert={this.setAlert}
-                    {...props}
-                  />
-                  <Users
-                    users={users}
-                    isLoading={isLoading}
-                    error={error}
-                  />
-                </Fragment>
-              )} />
-            </Switch>
-          </div>
+              </Fragment>
+            )} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/user/:login" render={props => (
+              <User
+                {...props}
+                getUserDetails={getUserDetails}
+                user={user}
+                isLoading={isLoading}
+                getUserRepos={getUserRepos}
+                repos={repos}
+                clearUsers={clearUsers}
+              />
+            )} />
+            <Route path="/search" render={props => (
+              <Fragment>
+                <SearchBar
+                  searchUsers={searchUsers}
+                  clearUsers={clearUsers}
+                  isDisabled={isDisabled}
+                  setAlert={setAlert}
+                  {...props}
+                />
+                <Users
+                  users={users}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              </Fragment>
+            )} />
+          </Switch>
         </div>
-      </Router>
-    )
-  }
+      </div>
+    </Router>
+  )
 }
 
 export default App
