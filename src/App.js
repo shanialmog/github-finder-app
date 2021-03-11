@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -18,23 +18,16 @@ const App = () => {
   const [alert, setAlert] = useState(null)
   const [error, setError] = useState(null)
 
-
-  // useEffect(() => {
-  //   Object.keys(user).length < 1 ? setError({ error: `No search results found for "${username}"` }) : ''
-  // }, [user])
-
-  // useEffect(() => {
-  //   Object.keys(repos).length < 1 ? setError({ error: `No repos were found for "${username}"` }) : ''
-  // }, [repos])
-
   const searchUsers = async (text) => {
     setIsLoading(true)
-    setAlert(null)
+    setError(null)
     try {
       const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       setIsLoading(false)
       setUsers(res.data.items)
-        // return users.length < 1 ? setError(`No search results found for "${text}"`) : ''
+      if (res.data.items.length < 1) {
+        setError(`No search results found for "${text}"`)
+      }
     } catch (err) {
       setError('Error fetching data, please try again')
     }
@@ -46,9 +39,10 @@ const App = () => {
     try {
       const res = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}$client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       setIsLoading(false)
-      setUser(res.data.items)
-      // return Object.keys(user).length < 1 ? setError({ error: `No search results found for "${username}"` }) : ''
-      // })
+      setUser(res.data)
+      if (Object.keys(res.data.items).length < 1) {
+        setError(`No search results found for "${username}"`)
+      }
     } catch (err) {
       setError('Error fetching data, please try again')
     }

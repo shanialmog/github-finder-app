@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 
 const User = ({user, isLoading, repos, clearUsers, getUserDetails, getUserRepos, match}) => {
+
     useEffect(() => {
         getUserDetails(match.params.login)
         getUserRepos(match.params.login)
@@ -44,7 +45,7 @@ const User = ({user, isLoading, repos, clearUsers, getUserDetails, getUserRepos,
                         <img src={avatar_url} className="round-img" alt="user" />
                         <h1>{name}</h1>
                         <h4>Location: {location}</h4>
-                        <a href={html_url} className="btn">Github profile</a>
+                        <a href={html_url} target="_blank" className="btn">Github profile</a>
                     </div>
                     <div className="user-col2">
                         {bio &&
