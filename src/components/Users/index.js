@@ -2,12 +2,12 @@ import UserItem from '../UserItem'
 import Spinner from '../Spinner'
 import PropTypes from 'prop-types'
 
-const Users = ({ users, isLoading, error }) => {
-    if (isLoading && !error) {
+const Users = ({ users, isLoading, alert }) => {
+    if (isLoading && !alert) {
         return <Spinner />
-    } else if (error) {
+    } else if (alert) {
         return <div className="error-message">
-            <i className="fas fa-info-circle" /> {error}</div>
+            <i className="fas fa-info-circle" /> {alert}</div>
     } else {
         return (
             <div style={userStyle}>
