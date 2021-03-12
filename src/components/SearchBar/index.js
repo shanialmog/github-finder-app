@@ -6,7 +6,7 @@ import Tooltip from '../Tooltip'
 const SearchBar = ({ searchUsers, history, clearUsers, isDisabled }) => {
 
     const [text, setText] = useState('')
-    const [alert, setAlert] = useState({ msg: 'Enter search text', type: 'info' })
+    const [tooltipTest, setTooltipText] = useState({ msg: 'Enter search text', type: 'info' })
     const [showTooltip, setShowTooltip] = useState(false)
 
     const onChange = (e) => {
@@ -58,7 +58,7 @@ const SearchBar = ({ searchUsers, history, clearUsers, isDisabled }) => {
 
                 {
                     showTooltip &&
-                    <Tooltip alert={alert} />
+                    <Tooltip tooltipTest={tooltipTest} />
                 }
             </form>
             <button

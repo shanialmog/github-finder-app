@@ -15,7 +15,6 @@ const App = () => {
   const [user, setUser] = useState({})
   const [repos, setRepos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [alert, setAlert] = useState(null)
   const [error, setError] = useState(null)
 
   const searchUsers = async (text) => {
@@ -81,7 +80,6 @@ const App = () => {
                   searchUsers={searchUsers}
                   clearUsers={clearUsers}
                   isDisabled={isDisabled}
-                  setAlert={setAlert}
                   {...props}
                 />
               </Fragment>
@@ -104,7 +102,6 @@ const App = () => {
                   searchUsers={searchUsers}
                   clearUsers={clearUsers}
                   isDisabled={isDisabled}
-                  setAlert={setAlert}
                   {...props}
                 />
                 <Users
