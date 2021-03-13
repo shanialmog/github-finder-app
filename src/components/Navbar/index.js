@@ -1,7 +1,11 @@
+import {useContext} from 'react'
+import GithubContext from '../../context/github/githubContext'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ title, icon, clearUsers }) => {
+const Navbar = ({ title, icon }) => {
+    const githubContext = useContext(GithubContext)
+
     return (
         <nav>
             <h1>
@@ -9,7 +13,7 @@ const Navbar = ({ title, icon, clearUsers }) => {
             </h1>
             <ul>
                 <li>
-                    <Link onClick={clearUsers} to="/">Home</Link>
+                    <Link onClick={githubContext.clearUsers} to="/">Home</Link>
                 </li>
                 <li>
                     <Link to="/about">About</Link>

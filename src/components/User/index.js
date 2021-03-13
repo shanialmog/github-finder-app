@@ -1,18 +1,21 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useContext } from 'react'
+import GithubContext from '../../context/github/githubContext'
 import Spinner from '../Spinner'
 import Repos from '../Repos'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 
 
-const User = ({user, isLoading, repos, clearUsers, getUserDetails, getUserRepos, match}) => {
+const User = ({ match }) => {
+    const githubContext = useContext(GithubContext)
+
+    const { user, isLoading, repos, clearUsers, getUserDetails, getUserRepos, } = githubContext
 
     useEffect(() => {
         getUserDetails(match.params.login)
         getUserRepos(match.params.login)
-        // eslint-disable-next-line
     }, [])
+
 
     const {
         name,
@@ -45,7 +48,7 @@ const User = ({user, isLoading, repos, clearUsers, getUserDetails, getUserRepos,
                         <img src={avatar_url} className="round-img" alt="user" />
                         <h1>{name}</h1>
                         <h4>Location: {location}</h4>
-                        <a href={html_url} target="_blank" className="btn">Github profile</a>
+                        <a href={html_url} target="_blank" rel="noreferrer" className="btn">Github profile</a>
                     </div>
                     <div className="user-col2">
                         {bio &&
@@ -86,14 +89,6 @@ const User = ({user, isLoading, repos, clearUsers, getUserDetails, getUserRepos,
             </Fragment >
         )
     }
-}
-
-User.proptype = {
-    isLoading: PropTypes.bool.isRequired,
-    user: PropTypes.object.isRequired,
-    getUserDetails: PropTypes.func.isRequired,
-    repos: PropTypes.array.isRequired,
-    getUserRepos: PropTypes.func.isRequired
 }
 
 export default User

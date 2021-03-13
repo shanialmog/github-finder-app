@@ -1,12 +1,13 @@
-import { useState } from 'react'
-import PropTypes from 'prop-types'
+import { useContext, useState } from 'react'
+import GithubContext from '../../context/github/githubContext'
 
 import Tooltip from '../Tooltip'
 
-const SearchBar = ({ searchUsers, history, clearUsers, isDisabled }) => {
+const SearchBar = ({ history }) => {
+    const githubContext = useContext(GithubContext)
 
     const [text, setText] = useState('')
-    const [tooltipTest, setTooltipText] = useState({ msg: 'Enter search text', type: 'info' })
+    const [tooltipText] = useState({ msg: 'Enter search text', type: 'info' })
     const [showTooltip, setShowTooltip] = useState(false)
 
     const onChange = (e) => {
@@ -19,7 +20,7 @@ const SearchBar = ({ searchUsers, history, clearUsers, isDisabled }) => {
     const onSubmit = (e) => {
         e.preventDefault()
         if (text.length > 0) {
-            searchUsers(text)
+            githubContext.searchUsers(text)
             setText('')
             history.push(`/search?q=${text}`)
         }
@@ -58,24 +59,18 @@ const SearchBar = ({ searchUsers, history, clearUsers, isDisabled }) => {
 
                 {
                     showTooltip &&
-                    <Tooltip tooltipTest={tooltipTest} />
+                    <Tooltip tooltipTest={tooltipText} />
                 }
             </form>
             <button
                 className="btn clear-btn"
-                onClick={clearUsers}
-                disabled={isDisabled}
+                onClick={githubContext.clearUsers}
+                disabled={githubContext.users.length > 0 ? false : true}
             >
                 Clear
                 </button>
         </div>
     )
-}
-
-SearchBar.propTypes = {
-    searchUsers: PropTypes.func.isRequired,
-    clearUsers: PropTypes.func.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
 }
 
 export default SearchBar
