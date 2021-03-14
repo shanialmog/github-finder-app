@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import GithubContext from '../../context/github/githubContext'
 
 import Tooltip from '../Tooltip'
 
-const SearchBar = ({ history }) => {
+const SearchBar = () => {
+    let history = useHistory();
     const githubContext = useContext(GithubContext)
 
     const [text, setText] = useState('')

@@ -141,6 +141,11 @@ ul {
   overflow: hidden;
 }
 
+.user-card h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .grid-3 > .card {
   margin: 0;
   overflow: hidden;

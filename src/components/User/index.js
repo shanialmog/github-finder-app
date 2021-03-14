@@ -14,6 +14,7 @@ const User = ({ match }) => {
     useEffect(() => {
         getUserDetails(match.params.login)
         getUserRepos(match.params.login)
+        // eslint-disable-next-line
     }, [])
 
 
