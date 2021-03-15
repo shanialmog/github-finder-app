@@ -13,6 +13,8 @@ export default (state, action) => {
         case SEARCH_USERS:
             return {
                 ...state,
+                repos: [],
+                user: {},
                 users: action.payload,
                 isLoading: false
             }

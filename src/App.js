@@ -9,6 +9,7 @@ import SearchBar from './components/SearchBar'
 import Home from './components/Home'
 import About from './components/About'
 import User from './components/User'
+import NotFound from './components/NotFound'
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
                   />
                 </Fragment>
               )} />
+              <Route component={NotFound}/>
             </Switch>
           </div>
         </div>
