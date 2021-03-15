@@ -15,7 +15,7 @@ const Users = () => {
             <i className="fas fa-info-circle" /> {alert}</div>
     } else {
         return (
-            <div style={userStyle}>
+            <div className="users-grid">
                 {
                     users.map((user) => (
                         <UserItem key={user.id} user={user} />
