@@ -1,11 +1,11 @@
 
 
-const Tooltip = ({ tooltipTest }) => {
+const Tooltip = ({ tooltipText }) => {
     return (
-        tooltipTest !== null && (
-            <span  className={`tooltip-${tooltipTest.type}`}>
+        tooltipText !== null && (
+            <span  className={`tooltip-${tooltipText.type}`}>
                     <i className="fas fa-info-circle" />
-                    {` ${tooltipTest.msg}`}
+                    {` ${tooltipText.msg}`}
             </span>
         )
     )

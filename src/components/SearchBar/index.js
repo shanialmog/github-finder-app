@@ -61,7 +61,7 @@ const SearchBar = () => {
 
                 {
                     showTooltip &&
-                    <Tooltip tooltipTest={tooltipText} />
+                    <Tooltip tooltipText={tooltipText} />
                 }
             </form>
             <button
