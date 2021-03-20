@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 /* Global Styles */
 
 :root {
@@ -70,7 +70,7 @@ nav li {
 
 .round-img {
   border-radius: 50%;
-  height: 5rem;; 
+  height: 5rem;
   align-self: center;
 }
 
@@ -89,7 +89,6 @@ nav li {
 }
 
 a:hover {
-  /* background-color: rgba(0, 0, 0, 0.5); */
   opacity: 1;
 }
 
@@ -404,29 +403,3 @@ p {
     font-size: 0.9rem;
   }
 }
-/* 
-@media (max-width: 780px) {
-  .skill-set {
-      flex-direction: column;
-  }
-  .row {
-      flex-direction: column;
-  }
-  .col-6 , .col-3{
-      width: 100%;
-  }
-  .experience-item-title {
-      flex-direction: column;
-      align-items: flex-start;
-  }
-  .section {
-      padding: 2em 0;
-  }
-  .experience-position {
-      font-size: 0.9em;
-  }
-
-  .header-name {
-      margin-left: 1rem;
-  }
-} */
