@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import { useContext } from 'react'
 import GithubContext from '../../context/github/githubContext'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
